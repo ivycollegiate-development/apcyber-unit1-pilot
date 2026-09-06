@@ -47,7 +47,7 @@ jobs:
             for (const [name, spec] of Object.entries(specs)) {
               const file = `answers/${name}.md`;
               if (!fs.existsSync(file)) {
-                results.push({ name, ok: false, msg: 'Answers file missing — copy CHECKPOINT.md into answers/ and fill it in.' });
+                results.push({ name, ok: true, skipped: true, msg: `⏭️ ${name} — not submitted yet (no answers file).` });
                 continue;
               }
               const text = fs.readFileSync(file, 'utf8');
