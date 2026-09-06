@@ -32,7 +32,7 @@ jobs:
                 style: 'content',
                 minWords: 40,
                 // student must reference these values from the section's scenario data
-                mustMention: ['192.168.1.47', 'discord'],
+                mustMention: ['192.168.1.47', 'techflow'],
                 questions: 3
               },
               'checkpoint-1.2': {
