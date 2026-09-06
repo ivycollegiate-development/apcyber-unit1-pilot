@@ -1,0 +1,24 @@
+Brightwave Dental — Front Desk Call Transcript (reconstructed from reception log)
+==================================================================================
+Caller:  "Hi, this is Marcus from TechFlow Solutions — we handle your IT."
+Staff:   "Oh hi, we weren't expecting anyone today."
+Caller:  "Right, that's my fault for not sending the heads-up. We're pushing
+          a Wi-Fi security update to all our dental offices tonight. Before
+          it applies, I need to verify the router is running the current
+          passphrase. Can you read that off the sticker on the office Wi-Fi
+          access point for me?"
+Staff:   "Um, I think it's brightwave2026."
+Caller:  "Perfect, that matches. One more thing — the update window closes
+          at 9:30. If it doesn't apply by then, the office network goes
+          offline until Monday and appointments can't check in."
+Staff:   "Oh! Okay, thanks for the heads-up."
+Caller:  "No problem. You won't get a ticket number for this — it's part of
+          the maintenance contract. Have a great one."
+[call ends 09:21]
+
+--- Analysis prompts (teacher) ---
+1. Where exactly did urgency appear? (09:17 — deadline pressure)
+2. Where did authority appear? ("we handle your IT", maintenance contract)
+3. Why did "no ticket number" feel plausible to the receptionist?
+4. The caller asked the receptionist to READ the passphrase, not type it.
+   Why is that distinction suspicious? (never share credentials aloud)

@@ -1,0 +1,21 @@
+TOP 20 of the "classic" breach wordlist (abrocked from rock-you for classroom use)
+password
+123456
+123456789
+12345678
+12345
+qwerty
+letmein
+letmein123
+dragon
+football
+iloveyou
+admin
+welcome
+monkey
+login
+princess
+abc123
+111111
+sunshine
+master

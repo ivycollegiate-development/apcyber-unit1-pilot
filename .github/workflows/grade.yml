@@ -1,0 +1,103 @@
+name: grade-checkpoints
+
+on:
+  push:
+    paths:
+      - 'answers/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Grade checkpoint answers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // ---- Grading specs: one entry per checkpoint ----
+            // style: 'content' = answers in own words, checked for substance + specific values
+            //        'command'  = pasted command output validated for structure/expected values
+            const specs = {
+              'checkpoint-1.1': {
+                style: 'content',
+                minWords: 40,
+                // student must reference these values from the section's scenario data
+                mustMention: ['192.168.1.47', 'discord'],
+                questions: 3
+              },
+              'checkpoint-1.2': {
+                style: 'content',
+                minWords: 50,
+                mustMention: ['rainbow', 'length'],
+                questions: 3
+              }
+            };
+
+            const results = [];
+            for (const [name, spec] of Object.entries(specs)) {
+              const file = `answers/${name}.md`;
+              if (!fs.existsSync(file)) {
+                results.push({ name, ok: false, msg: 'Answers file missing — copy CHECKPOINT.md into answers/ and fill it in.' });
+                continue;
+              }
+              const text = fs.readFileSync(file, 'utf8');
+
+              // count Graded response sections
+              const graded = (text.match(/^## Graded response/gm) || []).length;
+              if (graded < spec.questions) {
+                results.push({ name, ok: false, msg: `Only ${graded}/${spec.questions} "## Graded response" sections found. Answer every question under its own heading.` });
+                continue;
+              }
+
+              // anti-paste: minimum own-word count
+              const words = text.split(/\s+/).filter(w => w.length > 1).length;
+              if (words < spec.minWords) {
+                results.push({ name, ok: false, msg: `Too short (${words} words). Write fuller answers in your own words — minimum ${spec.minWords}.` });
+                continue;
+              }
+
+              // must reference scenario-specific values
+              const lower = text.toLowerCase();
+              const missing = spec.mustMention.filter(m => !lower.includes(m.toLowerCase()));
+              if (missing.length) {
+                results.push({ name, ok: false, msg: `Missing references to: ${missing.join(', ')}. Your answers must cite the specific values from this unit's data files.` });
+                continue;
+              }
+
+              // generic-answer heuristic: known paste-only phrases
+              const banned = ['cybersecurity is the practice of protecting', 'in today\'s digital world', 'it is important to note that'];
+              const bannedHit = banned.find(b => lower.includes(b));
+              if (bannedHit) {
+                results.push({ name, ok: false, msg: `Response contains filler text ("${bannedHit.slice(0, 40)}…"). Rewrite in your own words.` });
+                continue;
+              }
+
+              results.push({ name, ok: true, msg: `✅ ${name} — all checks passed (${words} words, ${graded} responses, scenario values referenced).` });
+            }
+
+            // ---- Report ----
+            const allOk = results.every(r => r.ok);
+            const summary = results.map(r => r.msg).join('\n');
+            fs.writeFileSync('grade_result.txt', allOk ? 'PASS' : 'FAIL');
+            console.log(summary);
+            core.setOutput('summary', summary);
+            core.setOutput('pass', allOk ? 'true' : 'false');
+
+      - name: Job status
+        run: |
+          if grep -q PASS grade_result.txt; then
+            echo "All checkpoints passed."
+          else
+            echo "One or more checkpoints failed — see the grade step output above."
+            exit 1
+          fi

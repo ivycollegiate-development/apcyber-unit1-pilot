@@ -1,0 +1,15 @@
+Brightwave Dental — Office Network Map (internal only)
+=======================================================
+Device                     IP
+-------------------------- ----------------
+Front desk PC              192.168.1.10
+Front desk phone (VoIP)    192.168.1.11
+Reception printer          192.168.1.20
+Guest Wi-Fi AP             192.168.1.30
+Office Wi-Fi AP            192.168.1.40
+Receptionist's laptop      192.168.1.47
+Back office file server    192.168.1.60
+Dr. Nguyen's office PC     192.168.1.70
+
+NOTE: 192.168.1.x is a private range. No outside caller's "router config
+tool" would ever appear at any address on this list.

@@ -1,0 +1,22 @@
+PixelVault Data Breach (simulation) — leaked password samples, MD5 unsalted
+============================================================================
+Format: md5hash:plaintext  (plaintext shown only for teacher key generation)
+
+d033e22ae348aeb5660fc2140aec35850c4da997:admin
+5f4dcc3b5aa765d61d8327deb882cf99:password
+e10adcc3949ba59abbe56e057f20f883e:123456
+25d55ad283aa400af464c76d713c07ad:123456789
+7c6a180b36896a0f898b935920ad33d1:letmein
+0d107d09f5bbe40cade3de5c71e9e9b7:letmein123
+5c1f26f313774b6b43a39d9e73e2b3f4:pixelhunter!
+c33367701511b4f6020ec61ded352059:654321
+81dc9bdb52d04c20036dbd8313ed055d:1234
+f7a42e1a1b0b4f5e8c3d21b6a9e0d5c2:gamer2026$
+
+Notes:
+- All hashes are plain MD5, NO salt.
+- "letmein123" is in the top-100 list (see leaked-top100.txt).
+- "gamer2026$" is NOT in any list, but cracks in seconds via rainbow table
+  because MD5 is unsalted and fast.
+- Teacher key: replace one sample with a per-student-unique password in the
+  real deployment (seed script) so answers aren't transferable.

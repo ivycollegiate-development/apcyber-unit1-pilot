@@ -1,0 +1,13 @@
+Brightwave Dental — Front Desk Reception Log
+=============================================
+Date: 2026-08-19
+
+09:12  Incoming call, caller ID unknown
+09:14  Caller claims to be "Marcus from TechFlow Solutions" (our IT vendor)
+09:15  Caller: "We're pushing a Wi-Fi security update and need the current
+       passphrase to verify the router config before the update applies."
+09:17  Caller: "The update window closes at 9:30 or the office network goes
+       offline until Monday."
+09:18  Receptionist reads out WPA2 passphrase: brightwave2026
+09:21  Call ends. No callback made. No ticket number referenced.
+09:40  Actual TechFlow Solutions engineer arrives on-site (scheduled).
